@@ -1,0 +1,63 @@
+# 3
+
+# Вводим переменную для текста
+txt = input("Введите текст")
+# Создаем новую переменную для текста
+new_txt = ""
+# Переменная разницы большого и малого регистра по таблицы ASCII
+delta = ord("a") - ord("A")
+# Цикал переберает все симвалы в тексте 
+for k in txt:
+    # Если буквы в малом регистре
+    if (ord(k) >= ord("a") and ord(k) <= ord("z")):
+        k = chr(ord(k) - delta)
+    # Если буквы в большом регистре
+    elif (ord(k) >= ord("A") and ord(k) <= ord("Z")):
+        k = chr(ord(k) + delta)
+    # Добовляем симвалы в новую текстовую переменную
+    new_txt = new_txt + k
+# Выводим конечный результат 
+print(new_txt)
+
+# 4 
+
+# Вводим переменную для текста
+txt = input("Введите текст")
+# Создаем новую переменную для текста
+new_txt = ""
+# определяем количество симвалов которые не попадет в основной цикл
+A = len(txt)%3
+# Вводм индекс для расчета цикла 
+num = 0
+# Цикал для переборки симвалов в тексте
+while num < len(txt)-2:
+    # Добовляем симвалы в текст в требовательной последовательности
+    new_txt = new_txt + txt[num+2]+txt[num + 1] + txt[num]
+    # Новое значение индекса
+    num = num+3
+# Если в исходном тексте остаедся один симвал 
+if A == 1:
+    new_txt = new_txt + txt[num]
+# Если в исходном тексте остаедся два симвала 
+elif A == 2:
+    new_txt = new_txt + txt[num] + txt[num +1]
+# Выводим конечный результат
+print("Результат:", new_txt)
+
+# 5
+
+txt_one = input("Введите первый текст")
+txt_two = input("Введите второй текст")
+string = "{:{fill}{align}{width}}"
+if len(txt_one) > len(txt_two):
+    txt_two = string.format(txt_two, fill='*', align='<', width=len(txt_one))
+elif len(txt_one) < len(txt_two):
+    txt_one = string.format(txt_one, fill='*', align='<', width=len(txt_two))
+num = 0
+now_txt = ""
+while num < len(txt_one):
+    now_txt = now_txt + txt_one[num] + txt_two[num]
+    num = num + 1
+print(now_txt)
+
+#6
