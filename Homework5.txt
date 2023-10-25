@@ -46,18 +46,179 @@ print("Результат:", new_txt)
 
 # 5
 
+# Пользователь вводит два текста  
 txt_one = input("Введите первый текст")
 txt_two = input("Введите второй текст")
+# Создаем динамический шаблон для format строки
 string = "{:{fill}{align}{width}}"
+# Определяем какое текстовое значение больше
 if len(txt_one) > len(txt_two):
+    # Добовляем в конец меньшего текстового значение звездочки (так что бы в двух текстов была одинаковая длина)
     txt_two = string.format(txt_two, fill='*', align='<', width=len(txt_one))
 elif len(txt_one) < len(txt_two):
     txt_one = string.format(txt_one, fill='*', align='<', width=len(txt_two))
+# создаем индекс
 num = 0
+# Создаем новый текст
 now_txt = ""
+# Создаем цикал для перебора всех симвалов двух текстов
 while num < len(txt_one):
+    # Добовляем в новый текст симвалы с двух преведущих текстов
     now_txt = now_txt + txt_one[num] + txt_two[num]
+    # Новое значение индекса
     num = num + 1
+# Выводим результат
 print(now_txt)
 
 #6
+
+# Исходный текст
+txt = input("Ваш текст: ")
+# Переменные
+new_txt = ""
+m = ord("а")
+n = ord("я")
+M = ord("А")
+N = ord("Я")
+# Создание шифра
+for s in txt:
+    k = ord(s)
+    if (k >= m and k < n) or (k >= M and k < N):
+        s = chr(k+1)
+    elif k == n:
+        s = chr(m)
+    elif k == N:
+        s = chr(M)
+    new_txt = new_txt + s
+# Проверка результата
+print("Шифр:", new_txt)
+
+# Создаем новвую переменную
+old_txt = ""
+# Создание дешифратор
+for s in new_txt:
+    k = ord(s)
+    if (k > m and k <= n) or (k > M and k <= N):
+        s = chr(k-1)
+    elif k == m:
+        s = chr(n)
+    elif k == M:
+        s = chr(N)
+    old_txt = old_txt +s
+# Проверка результата    
+print("Изначальный текст:", old_txt)
+
+# 7
+
+# Исходный текст
+txt = input("Ваш текст: ")
+m = ord("я")
+M = ord("Я")
+n = ord("ю")
+N = ord("Ю")
+# Переменные
+new_txt = ""
+# Создание шифра
+for s in txt:
+    k = ord(s)
+    if (k >= ord("в") and k <= ord("я")) or (k >= ord("В") and k <= ord("Я")):
+        s = chr(k - 2)
+    elif (k == ord("а")) or (k == ord("А")):
+        if k == ord("а"):
+            s = chr(n)
+        elif k == ord("А"):
+            s = chr(N)
+    elif (k == ord("б")) or (k == ord("Б")):
+        if k == ord("б"):
+            s = chr(m)
+        elif k == ord("Б"):
+            s = chr(M)
+    new_txt = new_txt + s
+# Проверка результата
+print("Шифр:", new_txt)
+
+
+m = ord("б")
+M = ord("Б")
+n = ord("а")
+N = ord("А")
+# Создаем новвую переменную
+old_txt = ""
+# Создание дешифратор
+for s in txt:
+    k = ord(s)
+    if (k >= ord("а") and k <= ord("А")) or (k >= ord("э") and k <= ord("Э")):
+        s = chr(k + 2)
+    elif (k == ord("ю")) or (k == ord("Ю")):
+        if k == ord("ю"):
+            s = chr(n)
+        elif k == ord("Ю"):
+            s = chr(N)
+    elif (k == ord("я")) or (k == ord("я")):
+        if k == ord("я"):
+            s = chr(m)
+        elif k == ord("Я"):
+            s = chr(M)
+    old_txt = old_txt +s
+# Проверка результата    
+print("Изначальный текст:", old_txt)
+
+# 8
+
+txt = input("Ваш текст: ")
+list1 = ['а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я', 'А', 'Е', 'Ё', 'И', 'О', 'У', 'Ы', 'Э', 'Ю', 'Я', ' ']
+list2 = ['б', 'в', 'г', 'д', 'ж', 'з', 'й', 'к', 'л', 'м', 'н', 'п', 'р', 'с', 'т', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'Б', 'В', 'Г', 'Д', 'Ж', 'З', 'Й', 'К', 'Л', 'М', 'Н', 'П', 'Р', 'С', 'Т', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ']
+new_txt = ""
+
+for s in txt:
+    for a in list1:
+        k = list1.index(a)
+        r = k+1
+        if s != list1[9] and s == a and s != list1[19] and s != list1[20]:
+            new_txt = new_txt + list1[r]
+        elif s == list1[9] and s == a:
+            new_txt = new_txt + list1[0]
+        elif s == list1[19] and s == a:
+            new_txt = new_txt + list1[10]
+        elif s == list1[20] and s == a:
+            new_txt = new_txt + list1[20]
+            
+    for a in list2:
+        k = list2.index(a)
+        r = k+1
+        if s == a and s != list2[20] and s != list2[41]:
+            new_txt = new_txt + list2[r]
+        elif s == list2[20] and s == a:
+            new_txt = new_txt + list2[0]
+        elif s == list2[41] and s == a: 
+            new_txt = new_txt + list2[21]
+            
+# Проверка результата
+print("Шифр:", new_txt)
+
+old_txt = ""
+
+for s in new_txt:
+    for a in list1:
+        k = list1.index(a)
+        r = k - 1
+        if s != list1[0] and s == a and s != list1[10] and s != list1[20]:
+            old_txt = old_txt + list1[r]
+        elif s == list1[0] and s == a:
+            old_txt = old_txt + list1[9]
+        elif s == list1[10] and s == a:
+            old_txt = old_txt + list1[19]
+        elif s == list1[20] and s == a:
+            old_txt = old_txt + list1[20]
+            
+    for a in list2:
+        k = list2.index(a)
+        r = k - 1
+        if s == a and s != list2[0] and s != list2[21]:
+            old_txt = old_txt + list2[r]
+        elif s == list2[0] and s == a:
+            old_txt = old_txt + list2[20]
+        elif s == list2[21] and s == a: 
+            old_txt = old_txt + list2[41]
+
+print("Изначальный текст:", old_txt)
