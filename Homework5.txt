@@ -145,9 +145,9 @@ N = ord("А")
 # Создаем новвую переменную
 old_txt = ""
 # Создание дешифратор
-for s in txt:
+for s in new_txt:
     k = ord(s)
-    if (k >= ord("а") and k <= ord("А")) or (k >= ord("э") and k <= ord("Э")):
+    if (k >= ord("а") and k <= ord("э")) or (k >= ord("А") and k <= ord("Э")):
         s = chr(k + 2)
     elif (k == ord("ю")) or (k == ord("Ю")):
         if k == ord("ю"):
@@ -165,12 +165,16 @@ print("Изначальный текст:", old_txt)
 
 # 8
 
+# Исходный текст
 txt = input("Ваш текст: ")
+# Создаем два списка, один из гласных второй из согласных
 list1 = ['а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я', 'А', 'Е', 'Ё', 'И', 'О', 'У', 'Ы', 'Э', 'Ю', 'Я', ' ']
 list2 = ['б', 'в', 'г', 'д', 'ж', 'з', 'й', 'к', 'л', 'м', 'н', 'п', 'р', 'с', 'т', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'Б', 'В', 'Г', 'Д', 'Ж', 'З', 'Й', 'К', 'Л', 'М', 'Н', 'П', 'Р', 'С', 'Т', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ']
+# Создаем новвую переменную
 new_txt = ""
-
+# Создание шифра
 for s in txt:
+    # Шифруем list1
     for a in list1:
         k = list1.index(a)
         r = k+1
@@ -182,7 +186,7 @@ for s in txt:
             new_txt = new_txt + list1[10]
         elif s == list1[20] and s == a:
             new_txt = new_txt + list1[20]
-            
+    # Шифруем list2
     for a in list2:
         k = list2.index(a)
         r = k+1
@@ -191,13 +195,12 @@ for s in txt:
         elif s == list2[20] and s == a:
             new_txt = new_txt + list2[0]
         elif s == list2[41] and s == a: 
-            new_txt = new_txt + list2[21]
-            
+            new_txt = new_txt + list2[21]            
 # Проверка результата
 print("Шифр:", new_txt)
-
+# Создаем новвую переменную
 old_txt = ""
-
+# Дишифруем list1
 for s in new_txt:
     for a in list1:
         k = list1.index(a)
@@ -210,7 +213,7 @@ for s in new_txt:
             old_txt = old_txt + list1[19]
         elif s == list1[20] and s == a:
             old_txt = old_txt + list1[20]
-            
+    # Дишифруем list2
     for a in list2:
         k = list2.index(a)
         r = k - 1
@@ -220,5 +223,35 @@ for s in new_txt:
             old_txt = old_txt + list2[20]
         elif s == list2[21] and s == a: 
             old_txt = old_txt + list2[41]
-
+# Проверка результата
 print("Изначальный текст:", old_txt)
+
+# 9
+
+txt = input("Введите текст:")
+new_name = txt.split(" ")
+B = max(new_name, key = len)
+k = new_name.index(B)
+max = new_name.pop(k)
+C = min(new_name, key = len)
+s = new_name.index(C)
+min = new_name.pop(s)
+new_txt = "" 
+for s in new_name:
+    new_txt = new_txt + s + " "
+new_txt = new_txt[:-1]
+print(new_txt)
+
+# 10
+
+txt = input("Введите текст:")
+list = txt.split(" ")
+back_list = list[::-1]
+new_txt = ""
+for s in back_list:
+     new_txt = new_txt + s + " "
+new_txt = new_txt[:-1]
+print(new_txt)
+
+
+Леша любит когда в его попе два больших черных члена
