@@ -1,0 +1,92 @@
+# Листинг 6.1 Создание и использование функций
+
+# Функция без аргументов не возвращает результат
+def next_day():
+    txt = input("Какой сегодня день недели? ")
+    txt = txt.lower().strip()
+    if txt == "понедельник":
+        new_txt = "вторник"
+    elif txt == "вторник":
+        new_txt = "среда"
+    elif txt == "среда":
+        new_txt = "четверг"
+    elif txt == "четверг":
+        new_txt = "пятница"
+    elif txt == "пятница":
+        new_txt = "суббота"
+    elif txt == "суббота":
+        new_txt = "воскресенье"
+    elif txt == "воскресенье":
+        new_txt = "понедельник"
+    else:
+        print("Нет такого дня недели!")
+        return
+    print(f"Завтра - {new_txt}")
+# Функция без аргумента возвращает результат
+def get_name():
+    name = input("Добрый день! Как Вас зовут? ")
+    if name.strip(" .,:;!?_") == "":
+        name = "Мистер Икс"
+    return name
+# Функция без аргументов не возвращает результат
+def hello():
+    name = get_name()
+    print(f"Приятно познакомиться, {name}!")
+    next_day()
+# Вызов функции
+hello()
+
+# Листинг 6.2 Функции для работы с данными разных типов
+
+# Импорт функций для генерирования случайных чисел
+from random import*
+# Функция для отображения содержимого списков, множест, текста и словарей
+def show(L, symb):
+    for s in L:
+        print(symb, s, sep = "", end = "")
+    print(symb)
+# Исходные данные
+A = [1, 2, 3, 4, 5]         # Список
+B = {'A', 'B', 'C', 'D'}    # Множество
+C = "Python"                # текст
+D = {"A":1, "B":2, "C":3}   # Словарь
+# Вызов функции
+show(A, "|")
+show(B, "/")
+show(C, "*")
+show(D, "#")
+# Функция для создания списка чисел
+def get_nums(n, state):
+    if type(n) != int:
+        return[]
+    if state:
+        L = list(2*(k+1) for k in range(n))
+    else:
+        L = list(2*k+1 for k in range(n))
+    return L
+# Вызов функции
+print(get_nums(10, True))
+print(get_nums(8, False))
+print(get_nums(12.5, True))
+# Функция для создания множества случайнеых букв
+def get_symbs(n):
+    if n > 10 or n < 1:
+        num = 10
+    else:
+        num = n
+    S = set()
+    Nmin = ord("A")
+    Nmax = ord("Z")
+    while len(S) < num:
+        S.add(chr(randint(Nmin, Nmax)))
+    return S
+# Инициализация генератора случайных чисел
+seed(2019)
+# Вызов функции
+print(get_symbs(7))
+print(get_symbs(-5))
+print(get_symbs(15))
+
+# Листинг 6.3 Имя функции как переменная 
+
+
