@@ -89,4 +89,28 @@ print(get_symbs(15))
 
 # Листинг 6.3 Имя функции как переменная 
 
-
+# Функция
+def alpha():
+    print("Это Alpha!")
+def bravo():
+    print("Это Bravo!")
+def hello():
+    print("А это Hello!")
+# Переменная с целочисленым значениям 
+num = 123
+# Вызов функции и проверка значения переменной
+print("Сначало было так:")
+alpha()
+bravo()
+hello()
+print("num =", num)
+# Изменение значений
+alpha, bravo = bravo, alpha
+num = hello
+hello = 321
+# Вызов "Функции" и проверка значения "переменой"
+print("А стало так:")
+alpha()
+bravo()
+num()
+print("hello =", hello)
