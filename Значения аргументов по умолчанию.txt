@@ -1,0 +1,26 @@
+# Листинг 6.6 Значения аргументов по умолчанию 
+
+# Функция со значениями аргументов по умолчанию
+def show(first, second = "Bravo", third = "Charlie"): 
+    print(f"[1] - {first}")
+    print(f"[2] - {second}")
+    print(f"[3] - {third}")
+    print("-"*13)
+# Вызов функции
+show("Alpha")
+show("A", "B", "C")
+show(10, 20)
+show(100, third = 300)
+show(third = "третий", first = "первый")
+
+# Листинг 6.7 Список как значение по умолчанию
+
+# Значение по умолчанию для аргумента - списка 
+def show(val = [0, 1, 2]):
+    for k in range(len(val)):
+        val[k] = val[k] + 1
+    print(val)
+# Вызов вункции 
+show()
+show()
+show()
