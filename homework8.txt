@@ -1,0 +1,227 @@
+# 1
+
+# Описание класса
+class MyClass:
+    # Конструктор
+    def __init__(self, num1 = 0, num2 = 0):
+        self.num1 = num1
+        self.num2 = num2
+    # Метот для отображения значения поля 
+    def show(self):
+        print(f'первое число = {self.num1}, второе число = {self.num2}')
+# Создание объектов и проверка полей        
+A = MyClass(5, 8)
+A.show()
+B = MyClass()
+B.show()
+
+# 2
+
+# Описание класса
+class MyClass:
+    # Конструктор
+    def __init__(self, n, k):
+        if type(n) == int and type(k) == str:
+            self.num = n
+            self.txt = k
+            print(f'Создано число ({self.num}) и создан текст ({self.txt})')
+        elif type(n) == str and type(k) == int:
+            self.num = k
+            self.txt = n
+            print(f'Создано число ({self.num}) и создан текст ({self.txt})')
+        elif type(n) == str and type(k) == str:
+            self.txt = n + ' ' + k
+            print(f'создан текст ({self.txt})')
+        elif type(n) == int and type(k) == int:
+            self.sum = n + k
+            print(f'Создана сумма двух чисел {n} и {k} = {self.sum}')
+        else:
+            print("Введен странный объект")
+# Создание объектов и проверка полей
+A = MyClass(10, "Привет")   
+B = MyClass("Hello", 10 ) 
+C = MyClass("Hello", "Pavel")
+D = MyClass(10, 15)
+E = MyClass([10, 15, "f"], ["d"])
+
+# 3
+
+# Описание класса
+class MyClass:
+    # Конструктор
+    def __init__(self, list):
+        list_new = []
+        for s in list:
+            if type(s) == int or type(s) == float:
+                k = [s]
+                list_new = list_new + k
+        self.list = list_new
+    # Метод для отображения значения поля
+    def content(self):
+        print(self.list)
+    # Метод для нахождения среднего числа поля
+    def average_value(self):
+        sum = 0
+        k = len(self.list)
+        for s in self.list:
+            x = float(s)
+            sum = sum + x
+        average_value = sum / k
+        print(f'Сумма элементов списка {self.list} = {sum}, среднее значения списка {sum}/{k} = {average_value}')
+# Создание объектов и проверка полей
+A = MyClass([10, 20, "h", 50.5])
+A.content()
+A.average_value()
+B = MyClass([10.25, "hello", 30, 2.37, 5, 'h2r', 27.3])
+B.average_value()
+
+# 4
+
+# Функция для создания объектов
+def create(n, name = None):
+    # Если последний аргумент не текстовый
+    if type(name) != str:
+        name = "MisterX"
+    if type(n) != list:
+        # Внутрений класс
+        class MyClass:
+            # Метод
+            def show(self):
+                print("Объект без полей")
+                print("Класс", self.__class__.__name__)
+    else:
+        class MyClass:
+            # Конструктор
+            def __init__(self):
+                list_new = []
+                for s in n:
+                    if type(s) != int and type(s) != float:
+                        k = [s]
+                        list_new = list_new + k
+                k = 0
+                for s in list_new:
+                    self.__dict__[s] = k
+                    k = k + 1
+            def show(self):
+                print("Объект с полями:")
+                for s in dir(self):
+                    if not s.startswith("_") and s != "show":
+                        print(s, "=", self.__dict__[s])
+                print("Класс", self.__class__.__name__)
+    # Название класса
+    MyClass.__name__ = name
+    # Результат функции
+    return MyClass()
+# Создание объектов и проверка 
+A = create(["red", "green", 1, "black", 125, "587"])  
+A.show()
+print("Объект А", A.__dict__)
+B = create(["g", "d", 'a', "df", 125, "34"], "Pasha")  
+B.show()
+print("Объект B", B.__dict__)
+
+# 5
+
+# Описание исходного класса класса
+class MyClass:
+    def __init__(self):
+      self.a1 = 2
+      self.a2 = "привет"
+      self.a3 = 12
+# Создание первого объекта       
+objec = MyClass()
+# Функция для создания объектов
+def fun(obj):
+    class Name:
+        def __init__(self):
+           for k in obj.__dict__:
+                if(type(obj.__dict__[k]) == int):
+                    self.__dict__[k] = obj.__dict__[k]
+        # Метот для отображения значения поля 
+        def show(self):
+            print("Объект с полями:")
+            for s in dir(self):
+                if not s.startswith("_") and s != "show":
+                    print(s, "=", self.__dict__[s])
+    # Результат функции            
+    return Name()
+# Создание объектов и проверка 
+ob1 = fun(objec)
+ob1.show()
+print(ob1.__dict__)
+
+# 6
+
+# Вводим пересенную для количества элементов в списке
+n = int(input("Введите количество элементов в списке"))
+# Создаем функцию для создания списка с n количеством элементов
+def my_list(k):
+    new_list = []
+    for s in range(k):
+        a = (f'A.{s+1}')
+        new_list = new_list + [a]
+    # Функция возвращает список
+    return new_list
+
+class MyClass:
+    # Конструктор
+    def __init__(self, n):
+        # Переменная для заполнения полей нечетными числами
+        odd_number = 1
+        for s in n:
+            self.__dict__[s] = odd_number
+            print(s, "=", self.__dict__[s])
+            odd_number = odd_number + 2
+# Создание объекта и проверка полей
+A = MyClass(my_list(n))
+print(A.__dict__)
+
+# 7
+
+class MyClass:
+    # Конструктор
+    def __init__(self, list1 = 0, list2 = 0, summary_list = 0):
+        self.list1 = input("Введите первый список (числа вводятся через пробел)").split()
+        self.list2 = input("Введите второй список (числа вводятся через пробел)").split()
+        self.summary_list = []
+    # Метот для отображения значения поля
+    def show(self):
+        print(self.list1, self.list2, self.summary_list)
+# Создаем функцию для создания списка из слаживания попарных значений двух списков а и b
+def Union(a, b):
+    # Создаем оператор для добовления недостоющих элементов в списке b, что бы выровнить количества элементов списка a и b нулями
+    if len(a) > len(b):
+        # создаем переменную равную разнице количества элементов списка a и b
+        l = len(a) - len(b)
+        # Переменная для цикла while
+        n = 0
+        # Создаем цикл для циклического добовления недостоющих элементов в список b
+        while n < l:
+            b.append(0)
+            n = n + 1
+    # Создаем оператор для добовления недостоющих элементов в списке a, что бы выровнить количества элементов списка a и b нулями
+    elif len(a) < len(b):
+        # создаем переменную равную разнице количества элементов списка b и a
+        l = len(b) - len(a)
+        # Переменная для цикла while
+        n = 0
+        # Создаем цикл для циклического добовления недостоющих элементов в список a
+        while n < l:
+            a.append(0)
+            n = n +1
+    # Переменная для общего списка
+    sum = []      
+    # Создаем цикл для подщета суммы попарного произведения из двух списков и на основе этого создания нового списка
+    for s in range(len(a)):
+        v = int(a[s]) + int(b[s])
+        sum = sum + [v]
+    return sum
+# Создание объектов        
+A = MyClass()
+# Вызов функция с двумя аргументами из одного класса
+list_sum = Union(A.list1, A.list2)
+# Изменяем значения поля объекта
+A.summary_list = list_sum
+# Провераем правильность работы программы
+A.show()
+print(A.__dict__)
