@@ -225,3 +225,94 @@ A.summary_list = list_sum
 # Провераем правильность работы программы
 A.show()
 print(A.__dict__)
+
+# 8
+
+# Класс
+class MyClass:
+    def __init__(self, name, n = 1):
+        self.name = name
+        if n == 1:
+            self.next = None
+        else:
+            self.next = MyClass(self.name, n-1)
+        self.set()
+    
+    # Метод для заполнения цепочки кодами
+    def set(self, num = 1):
+        self.code = self.name+"["+str(num)+"]"
+        if self.next != None:
+            self.next.set(num + 1)
+    # Метод для отображения кодов объектов в цепочке
+    def show(self):        
+        if self.next != None:
+            self.next.show() 
+        return self.code
+    
+# Создание цепочки объектов
+print("Один объект:")
+A = MyClass("Alpha", 5)
+
+print(A.show())
+print(A.__dict__)
+
+# 9
+
+class Node:
+    def __init__(self, data=None):
+        self.data = data
+        self.next = None
+
+class SLinkedList:
+    def __init__(self):
+        self.head = None
+
+    def Atbegining(self, data_in):
+        NewNode = Node(data_in)
+        NewNode.next = self.head
+        self.head = NewNode
+
+# Function to remove node
+    def RemoveNode(self, Removekey):
+
+        HeadVal = self.head
+
+        if (HeadVal is not None):
+            if (HeadVal.data == Removekey):
+                self.head = HeadVal.next
+                HeadVal = None
+                return
+
+        while (HeadVal is not None):
+            if HeadVal.data == Removekey:
+                break
+            prev = HeadVal
+            HeadVal = HeadVal.next
+
+        if (HeadVal == None):
+            return
+
+        prev.next = HeadVal.next
+
+        HeadVal = None
+
+    def LListprint(self):
+        printval = self.head
+        while (printval):
+            print(printval.data),
+            printval = printval.next
+
+
+llist = SLinkedList()
+llist.Atbegining("Mon")
+llist.Atbegining("Tue")
+llist.Atbegining("Wed")
+llist.Atbegining("Thu")
+print("Добавление")
+llist.LListprint()
+print("После удаоения")
+llist.RemoveNode("Tue")
+llist.LListprint()
+
+# 10
+
