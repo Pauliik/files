@@ -1,0 +1,178 @@
+# Листинг 9.5 переопределение методов
+
+# Первый класс
+class Alpha:
+    # Поле класса
+    code = 123
+    # Конструктор
+    def __init__(self, num):
+        print("Конструктор №1")
+        self.number = num
+        print("Создание объекта")
+        self.show()
+    # Метод
+    def show(self):
+        print("Метод №1")
+        print("Класс:", self.__class__.__name__)
+        print("Код класса:", self.__class__.code)
+        print("Поле number:", self.number)
+# Второй класс
+class Bravo(Alpha):
+    # Поле класса
+    code = 456
+# Третий класс
+class Charlie(Bravo):
+    # Конструктор
+    def __init__(self, num, txt):
+        print("Конструктор №2")
+        self.number = num
+        self.name = txt
+        print("Новый объект")
+        self.show()
+    # Переопределение метода 
+    def show(self):
+        print("Метод №2")
+        print("Класс:", self.__class__.__name__)
+        print("Код класса:", self.__class__.code)
+        print("Поле number:", self.number)
+        print("Поле name:", self.name)
+# Четвертый класс
+class Delta(Charlie):
+    # Поле класса
+    code = 789
+# создание объекта
+A = Alpha(100)
+# Создание поля объекта
+A.code = 321
+print("Поле команды A.code = 321")
+# Вызов метода 
+A.show()
+# Создание объектов
+B = Bravo(200)
+C = Charlie(300, "C")
+D = Delta(400, "D")
+A1 = Alpha(300)
+
+# Листинг 9.6 Виртуальность методов
+
+# Базовый класс 
+class Alpha:
+    # Методы
+    def display(self):
+        print("Метод из Alpha")
+        print("Поле code:", self.code)
+    def show(self):
+        self.display()
+# Производный класс
+class Bravo(Alpha):
+    # Переопределение метода 
+    def display(self):
+        print("Метод из Bravo")
+        print("Поле name:", self.name)
+# Создание объектов
+A = Alpha()
+A.code = 123
+B = Bravo()
+B.name = "B"
+# Вызов методов
+A.show()
+B.show()
+
+# Листинг 9.7 Использование инструкции super
+
+# Первый класс 
+class Alpha:
+    # Конструктор
+    def __init__(self, num):
+        self.code = num
+        print("Присвоенно значение полю code")
+    # Метод
+    def show(self):
+        print("Поле code", self.code)
+# Второй класс
+class Bravo(Alpha):
+    # Конструктор
+    def __init__(self, num, txt):
+        # Вызов конструктора базового класса
+        super().__init__(num)
+        self.name = txt
+        print("Присвоено значение полю name")
+    # Метод
+    def show(self):
+        # вызов метода из базового класса
+        super().show()
+        print("Поле name:", self.name)
+# Третий класс
+class Charlie(Bravo):
+    # Конструктор
+    def __init__(self, num, txt, val):
+        # Вызов конструктора базового класса
+        super().__init__(num, txt)
+        self.value = val
+        print("Присвоено значение полю value")
+    # Метод
+    def show(self):
+        # Вызов метода из базового класса
+        super().show()
+        print("Поле value:", self.value)
+# Создание объектов и вызов методов 
+print("Объект A")
+A = Alpha(100)
+A.show()
+print("Объект B")
+B = Bravo(200, 'B')
+B.show()
+print("Объект C")
+C = Charlie(300, 'C', [1, 2, 3])
+C.show()
+
+# Листинг 9.8 Вызов разных версий метода
+
+# Первый класс
+class Alpha:
+    # Конструктор 
+    def __init__ (self, num):
+        self.code = num
+    # Метод
+    def show(self):
+        print("Класс Alpha:", self.code)
+# Второй класс
+class Bravo(Alpha):
+    # Переопределение метода 
+    def show(self):
+        print("Класс Bravo:", self.code)
+        super().show()
+# Третий класс
+class Charlie(Alpha):
+    # Переопределение метода  
+    def show(self):
+        print("Класс Charlie:", self.code)
+        super(Charlie, self).show()
+# Четвертый класс
+class Delta(Bravo, Charlie):
+    # Переопределение метода
+    def show(self):
+        print("Класс Delta:", self.code)
+        super().show()
+        Charlie.show(self)
+        super(Bravo, self).show()
+# Функция для отображения цепочки наследования
+def display(MyClass):
+    print("Наследование для " + MyClass.__name__ + ":")
+    k = 1
+    for s in MyClass.__mro__:
+        print("[" + str(k) + ']', s.__name__)
+        k = k +1
+# Отображение цепочек наследование, создание объектов и вызов метода
+display(Alpha)
+A = Alpha(100)
+A.show()
+display(Bravo)
+B = Bravo(200)
+B.show()
+display(Charlie)
+C = Charlie(300)
+C.show()
+display(Delta)
+D = Delta(400)
+D.show()

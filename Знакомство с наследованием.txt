@@ -1,0 +1,77 @@
+# Листинг 9.1 Знакомство с наследованием
+
+# Базовый класс
+class Alpha:
+    # Конструктор
+    def __init__(self):
+        self.set(100)
+        print("Объект класс Alpha:", self.number)
+    # Методы
+    def set(self, n):
+        self.number = n
+    def show(self):
+        print(self.__class__.__name__, self.number)
+# Производный класс
+class Bravo(Alpha):
+    # Конструктор
+    def __init__(self):
+        self.set(200)
+        print("Объект класс Bravo:", self.number)
+# Объект базового класса
+A = Alpha()
+A.set(123)
+A.show()
+# Объект произвольного класса
+B = Bravo()
+B.set(321)
+B.show()
+
+# Листинг 9.2 Многократное наследование
+
+# Первый класс
+class Alpha:
+    code =123
+    def alpha(self):
+        print("Alpha:", self.code)
+# Второй класс
+class Bravo(Alpha):
+    def bravo(self):
+        print("Bravo:", self.code)
+# Третий класс
+class Charlie(Bravo):
+    def charlie(self):
+        print("Charlie:", self.code)
+# Функция для отображения иерархии наследования
+def show(MyClass):
+    print("Класс", MyClass.__name__, end = ":\n")
+    for s in MyClass.__mro__:
+        print("<", s.__name__, ">", end = "", sep="")
+    print()
+# Иерархия наследования классов
+show(Alpha)
+show(Bravo)
+show(Charlie)
+# Создание объектов
+A = Alpha()
+B = Bravo()
+C = Charlie()
+# Вызов метода
+print("Объект А")
+A.alpha()
+print("Объект B")
+B.alpha()
+B.bravo()
+print("Объект C")
+C.alpha()
+C.bravo()
+C.charlie()
+# Присваивание значения полю
+Bravo.code = 321
+print("Выполнене команда Bravo.code = 321")
+# Вызов методов
+print("Объект С")
+C.alpha()
+C.bravo()
+C.charlie()
+print("Объект A")
+A.alpha()
