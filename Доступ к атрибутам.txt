@@ -1,0 +1,122 @@
+# Листинг 9.13 Считывание значения поля 
+
+# Класс со специальными методами
+class Alpha:
+    # Метод для получения доступа к атрибуту 
+    def __getattribute__(self, name):
+        print("Alpha: запрос поля", name)
+        return object.__getattribute__(self, name)
+    # Метод вызывается если атрибута нет
+    def __getattr__(self, name):
+        print("Нет такого поля!")
+        return "Alpha: " + name
+# Класс со специальным методом
+class Bravo:
+    # Метод для получения доступа к атрибуту 
+    def __getattribute__(self, name):
+        print("Bravo: запрос поля", name)
+        try:
+            res = object.__getattribute__(self, name)
+        except AttributeError:
+            res = "Bravo: нет поля " + name
+        return res
+# Создание объектов и обращение к полям         
+print("Объект А класса Alpha")
+A = Alpha()
+A.value = 123
+print("Поле value:", A.value)
+print("Еще раз:", object.__getattribute__(A, "value"))
+A.value = 321
+print("Поле value:", A.value)
+print(A.color)
+print("Объект B класса Bravo")
+B = Bravo()
+B.mylist = [1, 2, 3]
+print("Поле mylist:", B.mylist)
+print("Еще раз:", object.__getattribute__(B, "mylist"))
+B.mylist = ["A", "B", "C"]
+print("Поле mylist:", B.mylist)
+print(B.myset)
+
+# Листинг 9.14 Обращение к несуществующим атрибутам
+
+# Класс со специальным методом 
+class Alpha:
+    # Метод вызывается если отрибута нет 
+    def __getattr__(self, name):
+        return len(name)
+# Класс со специальным методом
+class Bravo:
+    # обычный меттод 
+    def show(self, x):
+        print("Метод show():", x)
+    # Метод вызывается если атрибута нет
+    def __getattr__(self, name):
+        if len(name) < 5:
+            return lambda x: print("Первый метод:", x)
+        else:
+            return lambda x: print("Второй метод:", x*x)
+# Создание объекта и обращение к атрибутам
+print("Объекст А класса Alpha")
+A = Alpha()
+A.value = "Alpha"
+print("Поле value:", A.value)
+print("Поле color:", A.color)
+print("Поле myattribute:", A.myattribute)
+print("Объекст B класса Bravo")
+B = Bravo()
+B.show(10)
+B.hi(10)
+B.display(10)
+
+# Листинг 9.15 Обработка присваивание значения полю
+
+# Класс со специальным методом 
+class Alpha:
+    # Метод для присваивания значения атрибута
+    def __setattr__(self, name, val):
+        if name == "number" and type(val) != int:
+            res = 0
+        else:
+            res = val
+        self.__dict__[name] = res
+# Создание объекта
+A = Alpha()
+# Операции с полями объекта
+A.value = "Объект А"
+print("A.value =", A.value)
+A.number = 123
+print("A.number =", A.number)
+A.number = "Hello"
+print("A.number =", A.number)
+A.value = 321
+print("A.value =", A.value)
+A.__dict__["number"] = "Python"
+print("A.number =", A.number)
+
+# Листинг 9.16 Обработка удаления атрибута 
+
+# Класс со специальным методом 
+class Alpha:
+    # Метод вызывается если атрибута нет
+    def __getattr__(self, name):
+        return "Такого атрибута нет"
+    # Метод вызывается при удалеии атрибута 
+    def __delattr__(self, name):
+        if name == "number":
+            print("Удалять нельзя!")
+        else:
+            object.__delattr__(self, name)
+# Создание объекта
+A = Alpha()
+# Операции с полями объекта
+A.value = "Объект А"
+print("value:", A.value)
+del A.value
+print("value:", A.value)
+A.number = 123
+print("number:", A.number)
+del A.number
+print("number:", A.number)
+del A.__dict__["number"]
+print("number:", A.number)
