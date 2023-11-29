@@ -1,0 +1,130 @@
+# 1
+
+# Первый класс
+class First:
+    # Поле класса
+    first = int(input("Ввелите значения поля для первого класса"))
+    # Метод
+    def show(self):
+        print("Метод № 1")
+        print("Класс:", self.__class__.__name__)
+        print("Код класса:", self.first)
+# Второй класс       
+class Second(First):
+    # Поле класса
+    second = int(input("Ввелите значения поля для второго класса"))
+    # Метод
+    def show(self):
+        print("Метод № 2")
+        print("Класс:", self.__class__.__name__)
+        print("Код первого класса:", self.__class__.first)
+        print("Код второго класса:", self.second)
+# Третий класс        
+class Third(Second):
+    # Поле класса
+    third = int(input("Ввелите значения поля для третьего класса"))
+    # Метод
+    def show(self):
+        print("Метод № 2")
+        print("Класс:", self.__class__.__name__)
+        print("Код первого класса:", self.__class__.first)
+        print("Код второго класса:", self.__class__.second) 
+        print("Код третьего класса:", self.third)
+# создание объекта и вызов метода        
+A = First() 
+A.show()
+
+#или или или или или или или
+
+# Первый класс
+class First:
+    # Конструктор
+    def __init__(self, n):
+        self.first = n
+        print("Метод № 1")
+    # Метод
+    def show(self):
+        print("Поле self.first:", self.first)
+# Второй класс        
+class Second(First):
+    # Конструктор
+    def __init__(self, n, txt):
+        self.second = txt
+        super().__init__(n)
+        print("Метод № 2")
+    # Метод    
+    def show(self):
+        super().show()
+        print("Поле self.second:", self.second)
+# Третий класс       
+class Third(Second):
+    # Конструктор
+    def __init__(self, n, txt, val):
+        self.third = val
+        super().__init__(n, txt)
+        print("Метод № 3")
+    # Метод
+    def show(self):
+        super().show()
+        print("Поле self.third:", self.third)
+# создание объекта и вызов метода
+print("Объект A")
+A = First(3)
+A.show()
+print("\nОбъект B")
+B = Second(5, "Pasha")
+B.show()
+print("\nОбъект C")
+C = Third(3, "hello", [2, 5, 8])
+C.show()
+
+# 5
+
+# Первый класс
+class Alpha:
+    # Конструктор
+    def __init__(self, val):
+        self.value = val
+    # Добовления элемента к списку
+    def add(self, a):
+        return self.value.append(a)
+    # Метод для оператора "равно"
+    def __eq__(self, val):
+        print("Alpha: 'равно'")
+        return self.value == val
+    # Метод для оператора "не равно"
+    def __ne__(self, val):
+        print("Alpha: 'не равно'")
+        return self.value != val
+    # Метод для оператора "меньше"
+    def __lt__(self, val):
+        print("Alpha: 'меньше' ")
+        return self.value < val
+    # Метод для считывания значения по индексу 
+    def __getitem__(self, index):
+        return self.value[index]
+    # Метод для вычисления "длины" объекта
+    def __len__(self):
+        return len(self.value)
+# Создание объектов
+A = Alpha([1, 2, 3, 4, 5])
+B = Alpha([1, 2, 3, 4, 5, 6, 7, 8])
+# сравниваем количество элементов в двух списков, при неравенстве количества элементов, заполняем наименьший нулями
+if len(A) > len(B):
+    Q = len(A) - len(B)
+    for s in range(Q):
+        B.add(0)
+elif len(A) < len(B):
+    Q = len(B) - len(A)
+    for s in range(Q):
+        A.add(0)
+# Производим сравнивание каждого элемента двух списков друг с другом 
+for k in range(len(A)):
+    if k == 0 or k%3 == 0 :
+        print(f"[{k}]: {A[k]} == {B[k]}:", A[k] == B[k])
+    elif k == 1 or k%3 == 1:
+        print(f"[{k}]: {A[k]} != {B[k]}:", A[k] != B[k])
+    else:
+        print(f"[{k}]: {A[k]} < {B[k]}:", A[k] < B[k])
+
+# 6
