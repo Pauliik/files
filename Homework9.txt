@@ -78,6 +78,90 @@ print("\nОбъект C")
 C = Third(3, "hello", [2, 5, 8])
 C.show()
 
+# 3
+
+class Alpha:
+    # Конструктор
+    def __init__(self, lst):
+        self.vals = lst
+    # Метод для приведения к текстовому формату 
+    def __str__(self):
+        return str(self.vals)
+    # Метод для перегрузки оператора сложения 
+    def __add__(self, lst):
+	# self.vals + lst.vals это чтобы сложить списки объектов классам между сабой 
+        sum = self.vals + lst.vals 
+        return list(sum)
+# Создание объекта
+A = Alpha([1, "A", 2])
+B = Alpha(["B", 5])
+C = Alpha(A + B)
+print(f"Сложение списка {A} и списка {B} из класса Alpha создается новый списак из класса Alpha C = {C}")
+
+# 4
+
+# Класс с перегрузкой оперпторов
+class Alpha:
+    # Конструктор
+    def __init__(self, number):
+        self.number = number
+    # Метод для приведения к текстовому формату 
+    def __str__(self):
+        return str(self.number)
+    # Метод для перегрузки оператора сложения 
+    def __add__(self, n):
+        if type(n) == int:
+            sum = self.number + n
+            return sum
+        else:
+            sum = self.number + n.number 
+            return sum
+    # Метод для перегрузки оператора вычитания 
+    def __sub__(self, n):
+        if type(n) == int:
+            sub = self.number - n 
+            return sub
+        else:
+            sub = self.number - n.number 
+            return sub
+    # Метод для перегрузки оператора вычитания 
+    def __rsub__(self, n):
+        rsub = n - self.number 
+        return rsub
+    # Метод для перегрузки оператора умножения 
+    def __mul__(self, n):
+        if type(n) == int:
+            mul = self.number * n 
+            return mul
+        else:
+            mul = self.number * n.number 
+            return mul
+    # Метод для перегрузки оператора деления 
+    def __truediv__(self, n):
+        if type(n) == int:
+            truediv = self.number / n 
+            return truediv
+        else:
+            truediv = self.number / n.number 
+            return truediv
+# Создание объекта
+A = Alpha(5)
+D = Alpha(7)
+F = A + D
+F1 = D - A
+F2 = D * A
+F3 = D / A
+C = A * 25
+B = A + C
+print(F,";", F1, ";", F2, ";", F3)
+print(C)
+print(B)
+print("Сумма A + 5 =", A + 5)
+print("Вычитания A - 3 =", A - 3)
+print("Вычитания 14 - A =", 14 - A)
+print("Умножения A * 2 =", A * 2)
+print("Умножения A / 2 =", A / 2)
+
 # 5
 
 # Первый класс
@@ -128,3 +212,181 @@ for k in range(len(A)):
         print(f"[{k}]: {A[k]} < {B[k]}:", A[k] < B[k])
 
 # 6
+
+# Класс итератора 
+class MyClass:
+    # Конструктор
+    def __init__(self, *vals):
+        L = []
+        for v in vals:
+            if type(v) == str:
+                s = v[0]
+                L.append(s)
+        self.digits = L
+        self.position = -1
+    # Метод вызывается при вызове функции iter()
+    def __iter__(self):
+        return self
+    # Метод вызывается при вызове функции next()
+    def __next__(self):
+        self.position = self.position + 1
+        if self.position < len(self.digits):
+            return self.digits[self.position]
+        else:
+            raise StopIteration
+# Создание итератора
+A = MyClass(2, "A", 12, 7, -3, "Hello", 9, 5, "Alpha")
+# вызове функции next()
+try:
+    while True:
+        print(next(A), end = "")
+except StopIteration:
+    print()    
+# Создание итератора
+B = MyClass(5, "B", 1.2, 11, -1, "Hi", 8, 4, "Bravo", 3)
+# Оператор цикла
+for s in B:
+    print(s, end = "")
+print()
+
+# 7 
+
+class Alpha:
+    # Конструктор
+    def __init__(self, list1, list2):
+        self.list1 = list1
+        self.list2 = list2
+    # Метод для считывания значения по индексу 
+    def __getitem__(self, index):
+        return self.list1[index] and self.list2[index]
+    # Метод для вычисления "длины" объекта
+    def __len__(self):
+        return len(self.list1) and len(self.list2)
+    # Добовления элемента к списку и сумироване двух списков из объекта
+    def add_sum(self):
+        # Доповляем пустой список для долнейшего добовления и создания сумарного списка
+        F = []
+        # Сравниваем длину списка
+        if len(self.list1) > len(self.list2):
+            # заполняем пустой список объектоми из первого списка для долнейшего добовления нулей к концу списка
+            for s in self.list2:
+                F.append(s)
+            # Определяем разность на сколько один список больше другово списка
+            Q = len(self.list1) - len(self.list2)
+            # Добовляем нули в конце второго списка для выравнивание двух списков
+            for s in range(Q):
+                F.append(0)
+            self.list2 = F
+            print(self.list1, self.list2)
+        # Сравниваем длину списка   
+        if len(self.list1) < len(self.list2):
+            # заполняем пустой список объектоми из второго списка для долнейшего добовления нулей к концу списка
+            for s in self.list1:
+                F.append(s)
+            # Определяем разность на сколько один список больше другово списка
+            Q = len(self.list2) - len(self.list1)
+            # Добовляем нули в конце второго списка для выравнивание двух списков
+            for s in range(Q):
+                F.append(0)
+            self.list1 = F
+            print(self.list1, self.list2)
+        # Производим сложения одинаковых индексов двух списков и на основе этого создаем сумарный список
+        for s in range(len(self.list1)):
+            a = int(self.list1[s])
+            b = int(self.list2[s])
+            sum = a + b
+            F.append(sum)
+        # Выводим новый списак
+        print(F)
+        return F
+# Создание объектов
+A = Alpha([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [1, 2, 3, 4, 5, 6, 7, 8])
+A.add_sum()
+
+# 8
+
+# Первый класс
+class Alpha:
+    # Конструктор
+    def __init__(self, val):
+        self.value = val
+    # Метод для считывания значения по индексу 
+    def __getitem__(self, index):
+        return self.value[index]
+    # Метод для вычисления "длины" объекта
+    def __len__(self):
+        return len(self.value)
+# Создание объектов
+A = Alpha([1, 2, 3, 4, 5])
+
+sum = 0
+degree = 0
+x = int(input("Введите множетель"))
+for s in A:
+    sum = sum + (s*x**degree)
+    degree = degree + 1
+print(sum)
+
+# 9
+
+# Класс итератора 
+class MyClass:
+    # Конструктор
+    def __init__(self, num):
+        self.nums = num
+        self.position = -1
+    # Метод вызывается при вызове функции iter()
+    def __iter__(self):
+        return self
+    # Метод вызывается при вызове функции next()
+    def __next__(self):
+        self.position = self.position + 2
+        if self.position < self.nums * 2:
+            return self.position
+        else:
+            raise StopIteration
+# Создание итератора
+A = MyClass(int(input("Введите количество генерируемых нечетных чисел")))
+# вызове функции next()
+try:
+    while True:
+        print(next(A), end = " ")
+except StopIteration:
+    print()    
+B = MyClass(8)
+try:
+    while True:
+        print(next(B), end = " ")
+except StopIteration:
+    print() 
+
+# 10
+
+# Класс итератора 
+class MyClass:
+    # Конструктор
+    def __init__(self, num):
+        self.nums = num
+        self.position = -1
+        self.a = 1
+        self.b = 1
+    # Метод вызывается при вызове функции iter()
+    def __iter__(self):
+        return self
+    # Метод вызывается при вызове функции next() для чисел Фибоначчи
+    def __next__(self):
+        fib = self.a
+        self.position = self.position + 1
+        if self.position < self.nums - 1:
+            self.a, self.b = self.b, self.a + self.b
+            return fib
+        else:
+            raise StopIteration
+# Создание итератора
+A = MyClass(int(input("Введите количество генерируемых нечетных чисел")))
+# вызове функции next()
+try:
+    while True:
+        print(next(A), end = " ")
+except StopIteration:
+    print()    
