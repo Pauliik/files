@@ -1,0 +1,89 @@
+# Листинг 10.13 Блокировка ресурсов 
+
+from threading import *
+from time import sleep
+# Функция для выполнения в потоке
+def calc(txt, op):
+    # Глобальная переменная
+    global number
+    # Оператор цикла
+    for k in range(3):
+        # Блокировка ресурса
+        mylock.acquire()
+        print(txt, ": ресурс заблокирован", sep = "")
+        # Контролируемый код
+        try:
+            # Считывание значения переменной
+            print(txt, "прочитоно:", number)
+            # Запоменание значения переменной
+            val = number
+            # Пауза в выполнении потока
+            sleep(1)
+            # Изменение значения переменной
+            if op:
+                number = val + 1
+            else:
+                number = val - 1
+            # Отображения значения переменной
+            print(txt, " записано", number)
+        # Код выполняется всегда
+        finally:
+            print(txt, ": ресурс разблокирован", sep = "")
+            print("-------------------------------------")
+            # Разблокеровка ресурса
+            mylock.release()
+        # Пауза в выполнении потока
+        sleep(1)
+# Начальное значение глобальной переменной
+number = 0
+# Объект блокировкм
+mylock = Lock()
+# Объекты дочерних потоков
+A = Thread(target = calc, args = ["A", True])
+B = Thread(target = calc, args = ["B", False])
+# Запуск дочерних потоков на выполнение
+A.start()
+B.start()
+# Ожидание завершения потоков
+A.join()
+B.join()
+
+# Листинг 10.14 Взаимодействие потоков
+
+from threading import *
+from time import sleep
+# Функция для выполнения в потоке
+def display(txt):
+    A = [1, 2]
+    B = ["A", "B"]
+    sleep(1)
+    # Ожидание установки флага
+    myevent.wait()
+    # Отмена установки флага
+    myevent.clear()
+    for a in A:
+        print("[", a, "] ", txt, sep = "")
+    # Установка флага
+    myevent.set()
+    sleep(1)
+    # Ожидание установки флага
+    myevent.wait()
+    # отменна установки флага
+    myevent.clear()
+    for b in B:
+        print("[", b, "] ", txt, sep = "")
+    # Установка флага
+    myevent.set()   
+# Создание объекта
+myevent = Event()
+# Установка флага
+myevent.set()
+# Объекты дочерних потоков
+F = Thread(target = display, args = ["Первый"])
+S = Thread(target = display, args = ["Второй"])    
+# Запуск дочерних потоков на выполнение
+F.start()
+S.start()
+# Ожидание завершения потоков
+F.join()
+S.join()

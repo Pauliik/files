@@ -1,0 +1,106 @@
+# Листинг 10.9 Знакомство с патоками
+
+# Импорт класса Thread:
+from threading import Thread
+# Импорт функции sleep()
+from time import sleep
+# Функция для вызова в главном потоке
+def alpha():
+    for k in range(5):
+        # Пауза в выполнении потока
+        sleep(1.5)
+        print("[", k + 1, "] Alpha", sep = "")
+# Функция для выполнения в дочернем потоке
+def bravo():
+    for k in range(5):
+        print("[", k + 1, "] Bravo", sep = "")
+        # Пауза в выполнении потока
+        sleep(1)
+# Создание объекта дочернего потока
+t = Thread(target = bravo)
+# Запуск дочернего потока на выполнение
+t.start()
+# Вызов функции в главном потоке
+alpha()
+
+# Листинг 10.10 Вызов в потоке функции с аргументами
+
+from threading import Thread
+from time import sleep
+# Функция с тремя аргументами
+def display(count, time, text):
+    for k in range(count):
+        # Пауза в выполнении потока
+        sleep(time)
+        print("[", k + 1, "] ", text, sep = "")
+print("Начинается выполнение программы")
+# Создание объекта дочернего потока
+t = Thread(target = display, args = (5, 2, "Дочерний поток"))
+# Запуск дочернего потока на выполнение
+t.start()
+# Вызов функции в главном потоке
+display(3, 1.5, "Главный поток")
+# Ожидание завершения дочернего потока
+t.join()
+print("Программа завершила выполнение")
+
+# Листинг 10.11 Использование вызываемого объекта
+
+from threading import Thread
+from time import sleep
+# Класс для создания вызываемого объекта
+class MyClass:
+    # Конструктор
+    def __init__(self, text):
+        self.text = text
+    # Метод вызывается при вызове объекта
+    def __call__(self, count, time):
+        for k in range(count):
+            sleep(time)
+            print("[", k + 1, "] ", self.text, sep = "")
+print("Начинается выполнение программы")
+# Создание вызываемого объекта
+obj = MyClass("Дочерний поток")
+# Создание объекта дочернего потока
+t = Thread(target = obj, kwargs = {"time": 2, "count": 5})
+# Запуск дочернего потока на выполнение
+t.start()
+# Вызов анонимного объекта в главном потоке
+MyClass("Главный поток")(3, 1.5)
+# Ожидание завершения дочернего потока
+if t.is_alive():
+    t.join()
+print("Программа завершила выполнение")
+
+# Листинг 10.12 Создание потоков и наследование 
+
+from threading import Thread
+from time import sleep
+# Производный класс
+class MyClass(Thread):
+    # Конструктор
+    def __init__(self,count, time, text):
+        # Вызов конструктора базавого класса
+        super().__init__()
+        # Присваивание значений полям
+        self.count = count
+        self.time = time
+        self.text = text
+    # Переопределение метода для выполнения в потоке
+    def run(self):
+        for k in range(self.count):
+            sleep(self.time)
+            print("[", k + 1, "] ", self.text, sep = "")
+print("Начинается выполнение программы")
+# Создание объекта для дочернего потока
+A = MyClass(5, 2, "Alpha")
+B = MyClass(3, 1.5, "Bravo")
+# Запуск дочерних потоков на выполнение
+A.start()
+B.start()
+# Ожидание завершения дочерних потоков
+if A.is_alive():
+    A.join()
+if B.is_alive():
+    B.join()    
+print("Программа завершила выполнение")
