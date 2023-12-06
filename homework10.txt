@@ -80,6 +80,155 @@ while True:
 for s in range(a, b + 1):
     print(s, end = " ")
 
-# 3
+# 6
 
+from threading import *
+from time import sleep
+# Функция для вызова в потоке
+def mysum():
+    # Глобальная переменная 
+    global num
+    # Добавка к сумме
+    k = 1
+    # Текст для отображения
+    txt = str(num)
+    # Вычисление суммы
+    while myevent.is_set():
+        # К сумме прибовляется слагаемое
+        num = num + k**2
+        # Новое значение для текста
+        txt = txt + " + " + str(k) + "^2"
+        # Отображние текущего значения суммы
+        print("[", k, "] ", txt, " = ", num, sep = "")
+        # Добавка для следующей итерации
+        k = k + 1
+        # Пауза в выполнении потока
+        sleep(1)
+print("Сумма целых чисел")        
+# Создание объекта дочернего потока
+t = Thread(target = mysum)
+# Начальное значение для суммы
+num = 0
+# Объект для синхранизации потоков
+myevent = Event()
+# Установка флага
+myevent.set()
+# Запуск дочернего потока на выполнение
+t.start()
+# Пауза в выполнеии главного потока
+sleep(7)
+# Отменна флага
+myevent.clear()
+# Ожидание завершения выполнения дочернего потока
+if t.is_alive():
+    t.join()
+# Результат вычислений
+print("Результат:", num)
+
+# 7
+
+from threading import *
+from time import sleep
+# Функция для выполнение дочерних потоков
+def from_odd():
+    global first, last, L
+    val = 10
+    while True:
+        if first < last:
+            L[first] = val
+            val = val + 10
+            first = first + 1
+            sleep(0.3)
+        else:
+            break
+def from_honest():
+    global first, last, L
+    val = "A"
+    while True:
+        if first < last:
+            L[first] = val
+            val = chr(ord(val) + 1)
+            first = first + 1
+            sleep(0.3)
+        else:
+            break
+# Размер списка
+size = 20
+# Создание списка
+L = ["*" for k in range(size)]
+# Начальный и конечный индексы
+first = 0
+last = len(L) 
+print("Список до заполнения")
+print(L)
+# Создание объектов дочерних потоков
+A = Thread(target = from_odd)
+B = Thread(target = from_honest)
+# Запуск потоков на выполнение
+A.start()
+B.start() 
+# Ожидвание завершения потока
+A.join()
+B.join()
+# Результат заполнения списка
+print("Список после заполнения")
+print(L)
+
+# ????? Для себя что бы не забыть 
+
+A = []
+for k in range(3):
+    k = []
+    for s in range(4):
+        k.append(s)
+    A.append(k)
+print(A)
+
+# 9
+
+from threading import *
+from time import sleep
+from random import randint
+# Функция создает список для определенного потока и этот список добовляет в начальный список для создания двухмерного списка
+def mysum(N):
+    A = []
+    for k in range(N):
+        k = randint(1, 20)
+        A.append(k)
+    W.append(A)
+    sleep(0.1)
+    return A
+# Функция для выполнения в дочернем потоке
+def display(N):
+    # Блакировка объекта блокировки
+    mylock.acquire()
+    # Получение ссылки на текущий поток
+    t = current_thread()
+    # Отображение именни потока
+    print("Поток", t.name)
+    print("Количество элементов в списке:", N)
+    # Результат создания списка
+    print("список:", mysum(N))
+    print("-----------------------------------")
+    # Разблокировка объекта блокировки
+    mylock.release()
+# Создание объекта блокировки
+mylock = Lock()
+# Список с названиями потоков
+names = ["Alpha", "Bravo", "Charlie", "Delta"]
+# Создаем начальный список 
+W = []
+# Создание списка с объектами потоков
+T = [Thread(target = display, args = [randint(2, 8)], name = names[k]) for k in range(len(names))]
+# Запуск потоков на выполнение
+for t in T:
+    t.start()
+# Ожидание завершения выполнения потоков
+for t in T:
+    t.join()
+# Результат выполнения программы
+print("Итоговый двухмерный список")
+print(W)
+
+# 10
 
