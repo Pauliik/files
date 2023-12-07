@@ -422,3 +422,76 @@ print(W)
 
 # 10
 
+from threading import *
+from time import sleep
+# Функция для расчета факториала от n - го числа
+def Factorial_product(n):
+    L = 1
+    n = n + 1
+    for s in range(1, n):
+        L = L * s
+        sleep(0.003)
+    return L
+# Функция для расчета двойного факториала от n - го числа
+def DoubleFactorial_product(n):
+    L = 1
+    while 0 < n:
+        L = L * n
+        n = n - 2
+        sleep(0.003)
+    return L
+# Функция определяет значения n - го числа последовательности Фибоначчи 
+def Number_Fib(n):
+    a = b = 1
+    i = 2
+    while n > i:
+        a, b = b, a + b
+        i = i + 1
+        sleep(0.003)
+    return b
+# Функция для выполнения в дочернем потоке
+def Factorial(n):
+    # Блакировка объекта блокировки
+    mylock.acquire()
+    # Получение ссылки на текущий поток
+    T = current_thread()
+    print(f"Факториал чмсла: {n}! = {Factorial_product(n)}")
+    print("-----------------------------------")
+    # Разблокировка объекта блокировки
+    mylock.release()
+# Функция для выполнения в дочернем потоке
+def DoubleFactorial(n):
+    # Блакировка объекта блокировки
+    mylock.acquire()
+    # Получение ссылки на текущий поток
+    T = current_thread()
+    # Результат вычислений
+    print(f"Двойной факториал числа: {n}!! = {DoubleFactorial_product(n)}")
+    print("-----------------------------------")
+    # Разблокировка объекта блокировки
+    mylock.release()
+# Функция для выполнения в дочернем потоке
+def Fib(n):
+    # Блакировка объекта блокировки
+    mylock.acquire()
+    # Получение ссылки на текущий поток
+    T = current_thread()
+    # Результат вычислений
+    print(f"{n} символ последовательности Фибоначчи = {Number_Fib(n)}")
+    print("-----------------------------------")
+    # Разблокировка объекта блокировки
+    mylock.release()
+# Создание объекта блокировки
+mylock = Lock()
+# Создание списков
+T = Thread(target = Factorial, args = [10])    
+K = Thread(target = DoubleFactorial, args = [12]) 
+R = Thread(target = Fib, args = [19])
+# Запуск потоков на выполнение
+T.start()
+K.start()
+R.start()
+# Ожидание завершения выполнения потоков
+T.join()
+K.join()
+R.join()
