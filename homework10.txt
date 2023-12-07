@@ -80,6 +80,141 @@ while True:
 for s in range(a, b + 1):
     print(s, end = " ")
 
+# 3
+
+# Функция для решения линейного уравнения
+def solve(A, B):
+    # Контролируемый код
+    try:
+        # Преобразование к числовому формату
+        a = float(A)
+        b = float(B)
+    # Обработка исключения
+    except:
+        # Генерирование исключения
+        raise ValueError("Неверный формат данных")
+    # Проверка значений коэффициентов
+    if a == 1 or a == -1:
+        if b == 0:
+            # Генерирование исключения
+            raise Warning("Результат не определен")
+        else:
+            # Генерирование исключения
+            raise ArithmeticError("Решений нет")
+    # Результат функции
+    return b/((a**2)-1)
+# Использование функции для решения уровнений
+print("* Решаем квадратного уровнения")
+A = [2.5, 2, "три", 10, 0, -1, 2, 1]
+B = [3.0, 4, 0, "пять", 5, 0, 9, 15]
+# Вызов функции с разными аргументами
+for k in range(len(A)):
+    a = A[k]
+    b = B[k]
+    print("[", k + 1, "] Уравнение: (", a, "^2(-1))*x = ", b, sep = "")
+    # Контролируемый код
+    try:
+        print("[", k + 1, "] Решение: х = ", b, "/(", a, "^2(-1))", sep = "")
+        print("x =", solve(a, b))
+    # Обработка исключений
+    except ValueError as error:
+        print(error)
+    except ArithmeticError as error:
+        print(error)
+    except Warning as error:
+        print(error)
+    print("___________________________________________")
+print("* Все уровнения решены")
+
+# 4 
+
+# Загружаем математические функции 
+import math
+# Функция для решения уравнения
+def solve(A):
+    # Контролируемый код
+    try:
+        # Преобразование к числовому формату
+        a = float(A)
+    # Обработка исключения
+    except:
+        # Генерирование исключения
+        raise ValueError("Неверный формат данных")
+    # Проверка значений коэффициентов
+    if a == 1:
+        # Генерирование исключения
+        raise ArithmeticError("Решений нет")
+    elif a == 0:
+         # Генерирование исключения
+        raise ArithmeticError("Результат не определен")
+    # Результат функции
+    return math.sin(a)/(a*(a-1))
+# Использование функции для решения уровнений
+print("* Решаем квадратного уровнения")
+A = [2.5, 2, "три", 10, 0, -1, 2, 1]
+# Вызов функции с разными аргументами
+for k in range(len(A)):
+    a = A[k]
+    print(f"[{k+1}] Уравнение: {a}({a}-1)x = sin{a}")
+    # Контролируемый код
+    try:
+        print(f"[{k+1}] Решение: x = sin({a})/{a}({a}-1)")
+        print("x =", solve(a))
+    # Обработка исключений
+    except ValueError as error:
+        print(error)
+    except ArithmeticError as error:
+        print(error)
+    except Warning as error:
+        print(error)
+    print("___________________________________________")
+print("* Все уровнения решены")
+
+# 5
+
+class MyError(Exception):
+    # Конструктор
+    def __init__(self):
+        self.values = []
+    # Метод обрабатывает операцию сложения
+    def __add__(self, val):
+        k = int(val)
+        self.values.append(chr(k))
+        return self
+# Функция с рекурсивным вызовом генерирует исключение
+def getMyError(n):
+    # Контролируем код 
+    try:
+        if n <= 1:
+            # Генерирование исключения
+            raise MyError
+        if n >= 66 and n <= 90:
+            
+            # Рекурсивный вызов функции
+            getMyError(n-1)
+        else:
+            # Генерирование исключения
+            raise MyError
+    # Обработка исключений
+    except MyError as error:
+        # Генерирование исключения
+        raise error + n
+# Функция для создания списка 
+def getList(n):
+    # Контролируемый код
+    try:
+        # Вызов функции, генерирующей исключение
+        getMyError(n)
+    # Обработка исключения 
+    except MyError as error:
+        # Результат функции
+        return error.values
+# Создание списка 
+A = getList(90)
+print(A)
+A.reverse()
+print(A)
+
 # 6
 
 from threading import *
@@ -173,6 +308,61 @@ B.join()
 # Результат заполнения списка
 print("Список после заполнения")
 print(L)
+
+# 8
+
+from threading import *
+from time import sleep
+# Функция для заполнения списка числами
+def numbers_filling(n):
+    L = []
+    for s in range(n):
+        L.append(s)
+        sleep(0.003)
+    return L
+# Функция для заполнения списка симвалами
+def symbols_filling(n):
+    L = []
+    for s in range(n):
+        A = chr(ord("A") + s)
+        L.append(A)
+        sleep(0.003)
+    return L
+# Функция для выполнения в дочернем потоке
+def numbers(n):
+    # Блакировка объекта блокировки
+    mylock.acquire()
+    # Получение ссылки на текущий поток
+    T = current_thread()
+    print("Количество чисел:", n)
+    # Результат вычислений
+    print("Список:", numbers_filling(n))
+    print("-----------------------------------")
+    # Разблокировка объекта блокировки
+    mylock.release()
+# Функция для выполнения в дочернем потоке
+def symbols(n):
+    # Блакировка объекта блокировки
+    mylock.acquire()
+    # Получение ссылки на текущий поток
+    T = current_thread()
+    print("Количество симвалов:", n)
+    # Результат вычислений
+    print("Список:", symbols_filling(n))
+    print("-----------------------------------")
+    # Разблокировка объекта блокировки
+    mylock.release()
+# Создание объекта блокировки
+mylock = Lock()
+# Создание списков
+T = Thread(target = numbers, args = [10])    
+K = Thread(target = symbols, args = [15])    
+# Запуск потоков на выполнение
+T.start()
+K.start()
+# Ожидание завершения выполнения потоков
+T.join()
+K.join()
 
 # ????? Для себя что бы не забыть 
 
