@@ -1,0 +1,25 @@
+# 1
+
+from tkinter import *
+window = Tk()
+window.title("Первое задание главы 11")
+window.geometry("330x250")
+#window.resizable(False, False)
+
+cnv = Canvas(window, bg = "white", bd = 2)
+cnv.place(width = 320, height = 240, relx = 0.5, rely = 0.5, anchor = CENTER)
+cnv.focus_set()
+
+lbl = Label(cnv, text = "Welcome!", font = ("Wolgast Two bold", 18), background = "white", borderwidth = 0, compaun)
+lbl.place(relx = 0.5, anchor = N, y = 3,)
+btn = Button(cnv, text = "Закрыть", font = ("Wolgast Two", 10,), 
+             command = window.destroy, activebackground = 'brown3', activeforeground = 'black',
+             bg = 'seagreen3', bd = 1, cursor = 'hand2', fg = "brown2", 
+             padx = 20, pady = 5, relief = RIDGE, underline = 3)
+btn.place(relx = 0.5, rely = 0.98, anchor = S)
+
+
+img_1 = PhotoImage(file = "C:\\Users\\User\\Desktop\\new folder\\smile.png")
+cnv.create_image(160, 116, anchor = CENTER, image = img_1)
+
+window.mainloop()
