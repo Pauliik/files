@@ -1,36 +1,43 @@
 # 1
 
 from tkinter import *
-# Создание объекта окна
 window = Tk()
-# Заголовок для окна
 window.title("Первое задание главы 11")
-# Геометрические размеры окна
 window.geometry("330x250")
-# Окно посноянных размеров
 window.resizable(False, False)
-# Создание объектов для области рисования
 cnv = Canvas(window, bg = "white", bd = 2)
-# Размещеение области рисования в окне
 cnv.place(width = 320, height = 240, relx = 0.5, rely = 0.5, anchor = CENTER)
-# Передача фокуса области рисования
 cnv.focus_set()
-# Создание объекта метки
-lbl = Label(cnv, text = "Welcome!", font = ("Wolgast Two bold", 18), background = "white", borderwidth = 0)
-# Размер метки в окне
+lbl = Label(cnv, text = "Welcome!", font = ("Wolgast Two bold", 18), background = "white", borderwidth = 2,)
 lbl.place(relx = 0.5, anchor = N, y = 3,)
-# Объект кнопки
 btn = Button(cnv, text = "Закрыть", font = ("Wolgast Two", 10,), 
              command = window.destroy, activebackground = 'brown3', activeforeground = 'black',
              bg = 'seagreen3', bd = 1, cursor = 'hand2', fg = "brown2", 
              padx = 20, pady = 5, relief = RIDGE, underline = 3)
-# Размещение объекта кнопки в окне
 btn.place(relx = 0.5, rely = 0.98, anchor = S)
-# Создание объектов изображений
-img_1 = PhotoImage(file = "C:\\Users\\User\\Desktop\\new folder\\smile.png")
-# Создание объекта изображения который изначально отображается на области отрисовки
+img_1 = PhotoImage(file = "D:\my\Python\smile.png")
 cnv.create_image(160, 116, anchor = CENTER, image = img_1)
-# отображения главного окна 
+window.mainloop()
+
+# или или или или или или или или или
+
+from tkinter import *
+window = Tk()
+window.title("Первое задание главы 11")
+window.geometry("330x250")
+window.resizable(False, False)
+img_1 = PhotoImage(file = "D:\my\Python\smile.png")
+cnv = Canvas(window, bg = "white", bd = 2)
+cnv.place(width = 320, height = 240, relx = 0.5, rely = 0.5, anchor = CENTER)
+cnv.focus_set()
+lbl = Label(cnv, text = "Welcome!", font = ("French Script MT", 22), background = "white", borderwidth = 2, 
+            image = img_1, compound = "top")
+lbl.place(relx = 0.5, anchor = N, y = 3,)
+btn = Button(cnv, text = "Закрыть", font = ("French Script MT", 12), 
+             command = window.destroy, activebackground = 'brown3', activeforeground = 'black',
+             bg = 'seagreen3', bd = 15, cursor = 'hand2', fg = "brown2", 
+             padx = 5, pady = 5, relief = RIDGE)
+btn.place(relx = 0.5, rely = 0.98, anchor = S)
 window.mainloop()
 
 # 2
@@ -110,45 +117,48 @@ win.bind('<Return>', enter)
 # отображения главного окна 
 win.mainloop()
 
-#4
+# 4
 
 from tkinter import * 
-
-
-wnd = Tk()
-wnd.geometry("500x400+400+200")
-wnd.title("Задание 4 главвы 11")
-wnd.resizable(False, False)
-
+# Функция для очистки тестового и текстовой медки
 def delite():
     txt.delete("1.0", END)
     label.config(text = "")
-
+# Функция для синхранизации вводимого текста с меткой(метка заполняется в одно время с набераемым текстом)
 def copy(evt):
-    label["text"] = txt.get('1.0', 'end')
-    
-
+    label["text"] = txt.get('0.0', 'end')
+# Создание объекта окна
+wnd = Tk()
+# Размеры и положение окна
+wnd.geometry("500x400+400+200")
+# Заголовок для окна
+wnd.title("Задание 4 главвы 11")
+# Окно постоянных размеров
+wnd.resizable(False, False)    
+# Создание объектов поля для ввода текста
 txt = Text(bd = 5, bg = "white", fg = "red", font = ("Verdana", 14, "italic"),
             padx = 10, pady = 10, relief = "groove", wrap = "word", height = 5,)
+# Размещеение объекта для ввода теккста в окне
 txt.pack(padx = 10, pady = 10, fill = "x")
-
-label = Label(background = "yellow", font = ('Gabriola, 20'), foreground = "green", 
-               height = 5, text = "dsfsdfsdf")
-label.pack(padx = 10, fill = "x")
-
-
+# Создание объекта метки
+label = Label(background = "yellow", font = ("Verdana", 14, "italic"), foreground = "green", 
+                text = "", justify = 'left', anchor = NW, wraplength = 460, 
+                borderwidth = 5, height = 7, relief = "groove")
+# Размер метки в окне
+label.pack(padx = 10, fill = "x", ipadx = 100, pady = 0)
+# Объект кнопки
 btn_1 = Button(command = wnd.destroy, cursor = "hand2", text = "Закрыть", activebackground = "red",
              bg = "green", bd = 10, fg = "yellow", font = ("Times New Roman", 12), 
              relief = "groove")
+#Размещение объекта кнопки в окне
 btn_1.place( relx = 0.98, rely = 0.98, anchor = SE)
-
+# Объект кнопки
 btn_2 = Button(command = delite, cursor = "hand2", text = "Очистить", activebackground = "red",
              bg = "green", bd = 10, fg = "yellow", font = ("Times New Roman", 12), 
              relief = "groove")
+#Размещение объекта кнопки в окне
 btn_2.place( relx = 0.02, rely = 0.98, anchor = SW)
-
+# Регистрация обрабодчиков
 wnd.bind("<KeyPress>", copy)
-
-
-
+# отображения главного окна
 wnd.mainloop()
