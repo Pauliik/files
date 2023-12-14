@@ -1,25 +1,154 @@
 # 1
 
 from tkinter import *
+# Создание объекта окна
 window = Tk()
+# Заголовок для окна
 window.title("Первое задание главы 11")
+# Геометрические размеры окна
 window.geometry("330x250")
-#window.resizable(False, False)
-
+# Окно посноянных размеров
+window.resizable(False, False)
+# Создание объектов для области рисования
 cnv = Canvas(window, bg = "white", bd = 2)
+# Размещеение области рисования в окне
 cnv.place(width = 320, height = 240, relx = 0.5, rely = 0.5, anchor = CENTER)
+# Передача фокуса области рисования
 cnv.focus_set()
-
-lbl = Label(cnv, text = "Welcome!", font = ("Wolgast Two bold", 18), background = "white", borderwidth = 0, compaun)
+# Создание объекта метки
+lbl = Label(cnv, text = "Welcome!", font = ("Wolgast Two bold", 18), background = "white", borderwidth = 0)
+# Размер метки в окне
 lbl.place(relx = 0.5, anchor = N, y = 3,)
+# Объект кнопки
 btn = Button(cnv, text = "Закрыть", font = ("Wolgast Two", 10,), 
              command = window.destroy, activebackground = 'brown3', activeforeground = 'black',
              bg = 'seagreen3', bd = 1, cursor = 'hand2', fg = "brown2", 
              padx = 20, pady = 5, relief = RIDGE, underline = 3)
+# Размещение объекта кнопки в окне
 btn.place(relx = 0.5, rely = 0.98, anchor = S)
-
-
+# Создание объектов изображений
 img_1 = PhotoImage(file = "C:\\Users\\User\\Desktop\\new folder\\smile.png")
+# Создание объекта изображения который изначально отображается на области отрисовки
 cnv.create_image(160, 116, anchor = CENTER, image = img_1)
-
+# отображения главного окна 
 window.mainloop()
+
+# 2
+
+from tkinter import *
+# Функция для отображения, связанного с наведения курсора на область рисования
+def msEnter(evt):
+    cnv.itemconfig(Pct, image = img_1)
+# Функция для отработки события, связанное с тем, что курсор покидает область рисования
+def msLeave(evt):
+    cnv.itemconfig(Pct, image = img_2)
+# Создание объекта окна
+win = Tk()
+# Заголовок для окна
+win.title("Второе задание главы 11")
+# Размеры и положение окна
+win.geometry("330x250")
+# Окно постоянных размеров
+win.resizable(False, False)
+# Создание объектов для области рисования
+cnv = Canvas(win, bg = "yellow", bd = 30)
+# Размещеение области рисования в окне
+cnv.place(width = 325, height = 245, relx = 0.5, rely = 0.5, anchor = CENTER, 
+          bordermode = "outside")
+# Передача фокуса области рисования
+cnv.focus_set()
+# Объект кнопки
+btn = Button(command = win.destroy, cursor = "hand2", text = "Закрыть", activebackground = "red",
+             bg = "green", bd = 10, fg = "yellow", font = ("Times New Roman", 12), 
+             relief = "groove")
+# Размещение объекта кнопки в окне
+btn.place(relx = 0.5, rely = 0.87, anchor = CENTER)
+# Создание объектов изображений
+img_1 = PhotoImage(file = "grimace.png")
+img_2 = PhotoImage(file = "C:\\Users\\User\\Desktop\\new folder\\anger.png")
+# Создание объекта изображения который изначально отображается на области отрисовки
+Pct = cnv.create_image(162.5, 95, anchor = CENTER, image = img_1)
+# Регистрация обрабодчиков
+cnv.bind('<Enter>', msEnter)
+cnv.bind('<Leave>', msLeave)
+# отображения главного окна 
+win.mainloop()
+
+# 3
+
+from tkinter import * 
+# Функция для отображения вашего года раждения после ввода вашего возраста
+def enter(evt):    
+    L = int(entry.get()) 
+    k = 2023
+    yearsOld = k - L   
+    label_1 = Label(text = f"Вы родились в {yearsOld}")
+    label_1.place(relx = 0.02, rely = 0.2, anchor = "nw")    
+# Создание объекта окна
+win = Tk()
+# Размеры и положение окна
+win.geometry("300x200+800+350")
+# Заголовок для окна
+win.title("Третье задание главы 11")
+# Окно постоянных размеров
+win.resizable(False, False)
+# Создание объектов поля для ввода текста
+entry = Entry(cursor = "xterm", foreground = "red", font = ('GOST type A', 12), justify = "left",
+              width = 5)
+# Размещеение объекта для ввода теккста в окне
+entry.place(relx = 0.02, rely = 0.05, anchor = "nw")
+# Создание объекта метки
+label = Label(text = "Введите свой возраст")
+# Размер метки в окне
+label.place(relx = 0.16, rely = 0.05, anchor = "nw")
+# Создание объекта метки
+label_1 = Label(text = "Вы родились в ???")
+# Размер метки в окне
+label_1.place(relx = 0.02, rely = 0.2, anchor = "nw")
+# Регистрация обрабодчиков
+win.bind('<Return>', enter)
+# отображения главного окна 
+win.mainloop()
+
+#4
+
+from tkinter import * 
+
+
+wnd = Tk()
+wnd.geometry("500x400+400+200")
+wnd.title("Задание 4 главвы 11")
+wnd.resizable(False, False)
+
+def delite():
+    txt.delete("1.0", END)
+    label.config(text = "")
+
+def copy(evt):
+    label["text"] = txt.get('1.0', 'end')
+    
+
+txt = Text(bd = 5, bg = "white", fg = "red", font = ("Verdana", 14, "italic"),
+            padx = 10, pady = 10, relief = "groove", wrap = "word", height = 5,)
+txt.pack(padx = 10, pady = 10, fill = "x")
+
+label = Label(background = "yellow", font = ('Gabriola, 20'), foreground = "green", 
+               height = 5, text = "dsfsdfsdf")
+label.pack(padx = 10, fill = "x")
+
+
+btn_1 = Button(command = wnd.destroy, cursor = "hand2", text = "Закрыть", activebackground = "red",
+             bg = "green", bd = 10, fg = "yellow", font = ("Times New Roman", 12), 
+             relief = "groove")
+btn_1.place( relx = 0.98, rely = 0.98, anchor = SE)
+
+btn_2 = Button(command = delite, cursor = "hand2", text = "Очистить", activebackground = "red",
+             bg = "green", bd = 10, fg = "yellow", font = ("Times New Roman", 12), 
+             relief = "groove")
+btn_2.place( relx = 0.02, rely = 0.98, anchor = SW)
+
+wnd.bind("<KeyPress>", copy)
+
+
+
+wnd.mainloop()
