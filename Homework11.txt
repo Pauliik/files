@@ -89,8 +89,7 @@ def enter(evt):
     L = int(entry.get()) 
     k = 2023
     yearsOld = k - L   
-    label_1 = Label(text = f"Вы родились в {yearsOld}")
-    label_1.place(relx = 0.02, rely = 0.2, anchor = "nw")    
+    label_1.config(text = f"Вы родились в {yearsOld}")         
 # Создание объекта окна
 win = Tk()
 # Размеры и положение окна
@@ -162,3 +161,112 @@ btn_2.place( relx = 0.02, rely = 0.98, anchor = SW)
 wnd.bind("<KeyPress>", copy)
 # отображения главного окна
 wnd.mainloop()
+
+# 5
+
+from tkinter import *
+# Функция для увелечения шрифта 
+def increase_font():
+    global n
+    if n < difference:
+        n = n + 1
+        k = lis[n]
+        label.config(text = f"Размер шрифта {k}", font = ("Times New Roman", k))
+        return n     
+# Функция для уменьшения шрифта
+def reduce_font():    
+    global n
+    if n > 0:
+        n = n - 1
+        k = lis[n]
+        label.config(text = f"Размер шрифта {k}", font = ("Times New Roman", k))
+        return n
+# Максимальное и минимальное значения шрифта     
+size_min = 10
+size_max = 25
+# Количество элементов в списке
+difference = size_max - size_min 
+# переменная которая определяет индекс списка 
+n = 0
+# Создаем список из указаного диапазона размеров шрифта 
+lis = []
+for k in range(size_min, size_max + 1):
+    lis.append(k)
+# Создание объекта окна
+wnd = Tk()
+# Заголовок для окна
+wnd.title("Задание 5 главвы 11")
+# Размеры и положение окна
+wnd.geometry('400x150+500+300')
+# Окно постоянных размеров
+wnd.resizable(False, False)
+# Создание панели
+frame = Frame(wnd, relief = GROOVE, bd = 5)
+# Размещеение объекта
+frame.place(x = 5, y = 5, width = 390, height = 100)
+# Создание объекта метки с оглавлением
+label_1 = Label(frame, text = "Размер шрифта", font = ("Times New Roman", 14))
+# Создание объекта метки с шаблонным текстам
+label = Label(frame, bg = "white", relief = RAISED, text = f"Размер шрифта {size_min}", font = ("Times New Roman", size_min),
+               height = 5)
+# Размещение метки в окне
+label_1.pack(fill = X)
+# Размещение метки в окне
+label.pack(fill = "x")
+# Объект кнопки
+btn_1 = Button(cursor = "hand2", text = "Увеличеть", bg = "green", relief = "groove",
+               font = ("Times New Roman", 12), command = increase_font)
+# Объект кнопки
+btn_2 = Button(cursor = "hand2", text = "Уменшить", bg = "red", relief = "groove",
+               font = ("Times New Roman", 12), command = reduce_font)
+#Размещение объекта кнопки в окне
+btn_1.place(relx = 0.98, rely = 0.98, anchor = SE)
+#Размещение объекта кнопки в окне
+btn_2.place(relx = 0.02, rely = 0.98, anchor = SW)
+# отображения главного окна
+wnd.mainloop()
+
+# 6
+
+from tkinter import *
+# Функция для обработки события со статическим списком
+def switch(ares):    
+    t = listbox.get(listbox.curselection()) #  listbox.curselection - указывает какой именно индекс у выбранного элемента
+    for k in range(len(L)):        
+        if t == L[k]:
+            label.configure(image = imgs[k])            
+            break
+# Создание объекта окна
+wnd = Tk()
+# Заголовок для окна
+wnd.title("Задание 6 главы 11")
+# Размеры и положение окна
+wnd.geometry("250x200+400+300")
+# Окно постоянных размеров
+wnd.resizable(False, False)
+# Название эмоций 
+L = ["Добрый", "Злой", "Плачет"]
+# Название файлов с изображениями 
+files = ["smile.png", "anger.png", "sad.png"]
+# Список с объектами для изображений
+imgs = [PhotoImage(file = f) for f in files]
+# Создание объекта метки 
+label = Label(wnd, image = imgs[0], relief = "groove")
+# Размещение метки в окне
+label.place(relx = 0.995, rely = 0.005, anchor = NE)
+# Создание объекта статического списка
+listbox = Listbox(wnd, listvariable = L, fg = "green", cursor = "hand2", font = ('Segoe Script', 10), 
+                  selectforeground = "red", height = 3, width = 7, bd = 3, activestyle = "none")
+# Размещение статического списка в окне
+listbox.place(relx = 0.005, rely = 0.005, anchor = NW)
+# Заполнение статического списка пунктами
+for n in L:
+    listbox.insert(END, n)
+# По умолчанию выбран первый пункт 
+listbox.select_set(0)
+# Обработчик для статического списка
+listbox.bind("<<ListboxSelect>>", switch)
+# Отображение окна
+wnd.mainloop()
+
+# 7
