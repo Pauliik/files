@@ -89,7 +89,8 @@ def enter(evt):
     L = int(entry.get()) 
     k = 2023
     yearsOld = k - L   
-    label_1.config(text = f"Вы родились в {yearsOld}")         
+    label_1 = Label(text = f"Вы родились в {yearsOld}")
+    label_1.place(relx = 0.02, rely = 0.2, anchor = "nw")    
 # Создание объекта окна
 win = Tk()
 # Размеры и положение окна
@@ -270,3 +271,98 @@ listbox.bind("<<ListboxSelect>>", switch)
 wnd.mainloop()
 
 # 7
+
+from tkinter import * 
+# Функция для изменения цвета
+def colors(*args):    
+    if color.get() == "red":        
+        label.config(background = "red")
+    elif color.get() == "blue":
+        label.config(background = "blue")
+    elif color.get() == "green":
+        label.config(background = "green")
+# Создание окна
+wnd = Tk()
+wnd.title("Задвние 7 главы 11")
+wnd.geometry("400x50+400+300")
+wnd.resizable(False, False)
+# Переменные для определения тестового сождержимого в элементах управления
+color = StringVar()
+# Переключатели
+rb_1 = Radiobutton(cursor = "hand2", text = "Red", fg = "red", variable = color, 
+                   value = "red", command = colors)
+rb_2 = Radiobutton(cursor = "hand2", text = "Blue", fg = "blue", variable = color, 
+                   value = "blue", command = colors)
+rb_3 = Radiobutton(cursor = "hand2", text = "Green", fg = "green", variable = color, 
+                   value = "green", command = colors)
+# Размещение переключателей
+rb_1.pack(fill = "x", side = "left", anchor = "n", pady = 5)
+rb_2.pack(fill = "x", side = "left", anchor = "n", pady = 5)
+rb_3.pack(fill = "x", side = "left", anchor = "n", pady = 5)
+# Устанавливается переключатель
+color.set("red")
+# Создание цветовой метки
+label = Label(background = "red")
+# Размещение цветовой метки 
+label.pack(fill = "both", padx = 10, pady = 5)
+# Режим отслеживания значения переменных
+color.trace_add("read", colors)
+# Отображение окна
+wnd.mainloop()
+
+# 8
+
+from tkinter import * 
+# Функция для закрытия программы
+def clExite():
+    wnd.destroy()
+# Функция для вывода картинки смайлик
+def fd():
+    label.config(text = "")
+    label.config(image = smil)       
+# Функция для отображения картинот в зависемости от нажатия в меню
+def qq(*args):
+    for s in range(len(names)):
+        if names[s] == animals.get():
+            label.config(image = imags_1[s], text = f"{names[s]}")
+            break 
+# Создание окна       
+wnd = Tk()
+wnd.title("Задание 8 главы 11")
+wnd.geometry('500x400+400+200')
+wnd.resizable(False, False)
+# Переменные для определения тестового сождержимого в элементах управления
+animals = StringVar()
+# Создание пунктов главного меню
+my_menu = Menu()
+# Создание подпунктов главного меню
+file_menu = Menu(tearoff = 0, font = ('Algerian', 10))
+# Добавления подпунктов меню 
+file_menu.add_radiobutton(label = "Cobra", value = "Кобра", variable = animals, command = qq)
+file_menu.add_radiobutton(label = "Dog", value = "Собака", variable = animals, command = qq)
+file_menu.add_radiobutton(label = "Bear", value = 'Медветь', variable = animals, command = qq)
+# Добавления пункта меню на панель меню
+my_menu.add_cascade(label = 'Animals', menu = file_menu)
+my_menu.add_radiobutton(label = "Smile", command = fd, variable = animals)
+my_menu.add_command(label = "Exit", command = clExite)
+# Задаем главное меню для окна
+wnd.config(menu = my_menu)
+# Создание  метки
+label = Label(wnd, background = 'white', relief = 'ridge', borderwidth = 10, foreground = "red", font = ('Times New Roman', 36, "italic"), 
+              compound = "bottom")
+# Размещение  метки 
+label.place(x = 10, y = 10, anchor = "nw", height = 380, width = 480)
+# объект для изображения
+smil = PhotoImage(file = "D:\\my\\Python\\smile.png")
+# Переменная с путем к файлам изображений 
+path = "D:\\my\\Python\\Раскрывающийся список\\"
+# Названия файлов с изображениями
+files = ['cobra.png', 'dog.png', 'bear.png']
+# Названия животных
+names = ['Кобра', "Собака", "Медветь"]
+# Список с объектами для изображений
+imags_1 = [PhotoImage(file = path + f) for f in files]
+# Режим отслеживания значения переменных
+animals.trace_add("read", qq)
+# Отображение окна
+wnd.mainloop()
