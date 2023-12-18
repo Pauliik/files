@@ -89,8 +89,7 @@ def enter(evt):
     L = int(entry.get()) 
     k = 2023
     yearsOld = k - L   
-    label_1 = Label(text = f"Вы родились в {yearsOld}")
-    label_1.place(relx = 0.02, rely = 0.2, anchor = "nw")    
+    label_1.config(text = f"Вы родились в {yearsOld}")         
 # Создание объекта окна
 win = Tk()
 # Размеры и положение окна
@@ -365,4 +364,75 @@ imags_1 = [PhotoImage(file = path + f) for f in files]
 # Режим отслеживания значения переменных
 animals.trace_add("read", qq)
 # Отображение окна
+wnd.mainloop()
+
+# 9
+
+from tkinter import * 
+# Функция для расчета алгебраических вырожений
+def enter(evt): 
+    try:          
+        label_1.config(text = f"ответ равен {eval(entry.get())}") 
+    except:
+        label_1.config(text = "Произашла ошибка ввода")      
+# Создание объекта окна
+win = Tk()
+# Размеры и положение окна
+win.geometry("300x200+800+350")
+# Заголовок для окна
+win.title("Третье задание главы 11")
+# Окно постоянных размеров
+win.resizable(False, False)
+# Создание объектов поля для ввода текста
+entry = Entry(cursor = "xterm", foreground = "red", font = ('Times New Roman', 14), justify = "left",
+              width = 18)
+# Размещеение объекта для ввода вырожения в окне
+entry.place(relx = 0.02, rely = 0.05, anchor = "nw")
+# Создание объекта метки
+label = Label(text = "Введите вырожение")
+# Размер метки в окне
+label.place(relx = 0.6, rely = 0.05, anchor = "nw")
+# Создание объекта метки
+label_1 = Label(text = "ответ равен")
+# Размер метки в окне
+label_1.place(relx = 0.02, rely = 0.2, anchor = "nw")
+# Регистрация обрабодчиков
+win.bind('<Return>', enter)
+# отображения главного окна 
+win.mainloop()
+
+# 10
+
+from tkinter import * 
+# Функциb для отработки событий, связанного с нажатием кнопки "вверх", "низ", "вправа", "влево"
+def UP(evt):
+    canvas_1.move(circle, -1, -1)
+def Down(evt):
+    canvas_1.move(circle, 1, 1)
+def Right(evt):
+    canvas_1.move(circle, 1, -1)
+def Left(evt):
+    canvas_1.move(circle, -1, 1)
+# Создание объекта окна
+wnd = Tk()
+# Размеры и положение окна
+wnd.geometry("400x400+400+200")
+# Заголовок для окна
+wnd.title("Задание 4 главвы 11")
+# Окно постоянных размеров
+wnd.resizable(False, False)    
+# Создание объектов для области рисования
+canvas_1 = Canvas(wnd, bg = "green", borderwidth = 10, height = 300, width = 300)
+# Размещеение области рисования в окне
+canvas_1.place(anchor = "center", x = 200, y = 200)
+# Передача фокуса области рисования
+canvas_1.focus_set()
+# Создание окружности
+circle = canvas_1.create_oval(140, 140, 160, 160, fill = "yellow", outline = "red")
+# Регистрация обрабодчиков
+canvas_1.bind("<Left>", Left)
+canvas_1.bind("<Right>", Right)
+canvas_1.bind("<Up>", UP)
+canvas_1.bind("<Down>", Down)
+# отображения главного окна
 wnd.mainloop()
